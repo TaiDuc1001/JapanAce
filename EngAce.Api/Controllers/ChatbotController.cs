@@ -3,7 +3,7 @@ using Events;
 using Helper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngAce.Api.Controllers
+namespace JapanAce.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

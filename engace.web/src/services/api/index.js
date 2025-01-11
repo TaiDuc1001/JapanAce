@@ -20,8 +20,8 @@ export const AppService = {
     });
   },
 
-  getEnglishLevel: () => {
-    return baseRequest.get(UrlApi.URL_GET_ENGLISH_LEVEL);
+  getJapaneseLevels: () => {
+    return baseRequest.get(UrlApi.URL_GET_JAPANESE_LEVEL);
   },
 
   getDictionarySearch: (keyword, context, useEnglishToExplain) => {
@@ -36,7 +36,7 @@ export const AppService = {
 
   getEssayReview: (content, level) => {
     return baseRequest.post(
-      `${UrlApi.URL_GET_ESSAY_REVIEW}?englishLevel=${level}`,
+      `${UrlApi.URL_GET_ESSAY_REVIEW}?JapaneseLevels=${level}`,
       content
     );
   },
@@ -51,7 +51,7 @@ export const AppService = {
 
   getSuggestTopics: (level) => {
     return baseRequest.get(
-      `${UrlApi.URL_GET_SUGGEST_TOPICS}?englishLevel=${level}`
+      `${UrlApi.URL_GET_SUGGEST_TOPICS}?JapaneseLevels=${level}`
     );
   },
 
@@ -65,7 +65,7 @@ export const AppService = {
       QuizzTypes: qTypes,
     };
     return baseRequest.post(
-      `${UrlApi.URL_GENERATE_QUIZ}?englishLevel=${level}&totalQuestions=${quantity}`,
+      `${UrlApi.URL_GENERATE_QUIZ}?JapaneseLevels=${level}&totalQuestions=${quantity}`,
       data
     );
   },

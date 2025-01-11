@@ -1,4 +1,3 @@
-// import PropTypes from "prop-types";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -55,12 +54,12 @@ export default function QuizzStatus({
         top: 0,
         px: { xs: 1, md: 2 },
         pt: 1,
-        mt: 1
+        mt: 1,
       }}
       elevation={2}
     >
       <Typography variant="h6" sx={{ color: "primary.black" }}>
-        TRẠNG THÁI LÀM BÀI
+        テストの状態
       </Typography>
       <Stack
         spacing={{ xs: 1, sm: 1 }}
@@ -111,7 +110,7 @@ export default function QuizzStatus({
             size="large"
             onClick={handleOpenDialog}
           >
-            NỘP BÀI
+            提出する
           </Button>
         )}
         {submit && (
@@ -121,7 +120,7 @@ export default function QuizzStatus({
             size="large"
             onClick={handleContinue}
           >
-            LÀM BÀI TẬP KHÁC
+            別のテストを行う
           </Button>
         )}
       </Box>
@@ -136,7 +135,7 @@ export default function QuizzStatus({
             paddingBottom: "0.5rem",
           }}
         >
-          <a>Bạn có chắc chắn muốn nộp bài?</a>
+          <Typography>提出してもよろしいですか？</Typography>
         </DialogContent>
         <DialogActions>
           <Box
@@ -149,14 +148,14 @@ export default function QuizzStatus({
             }}
             gap={1}
           >
-            <Button onClick={handleCloseDialog}>Hủy</Button>
+            <Button onClick={handleCloseDialog}>キャンセル</Button>
             <Button
               onClick={handleSubmit}
               variant="contained"
               color="error"
               autoFocus
             >
-              Nộp
+              提出
             </Button>
           </Box>
         </DialogActions>

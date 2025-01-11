@@ -1,4 +1,4 @@
-﻿using EngAce.Api.DTO;
+﻿using JapanAce.Api.DTO;
 using Entities;
 using Entities.Enums;
 using Events;
@@ -6,7 +6,7 @@ using Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace EngAce.Api.Controllers
+namespace JapanAce.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -17,10 +17,10 @@ namespace EngAce.Api.Controllers
         private readonly string _accessKey = HttpContextHelper.GetAccessKey();
 
         /// <summary>
-        /// Generates a list of quizzes based on the specified request, English level, and total number of questions.
+        /// Generates a list of quizzes based on the specified request, Japanese level, and total number of questions.
         /// </summary>
         /// <param name="request">The request containing the topic and quiz types.</param>
-        /// <param name="englishLevel">The English level for which to generate quizzes. Default is Intermediate.</param>
+        /// <param name="JapaneseLevels">The Japanese level for which to generate quizzes. Default is N3 (Intermediate).</param>
         /// <param name="totalQuestions">The total number of questions to generate. Default is 10.</param>
         /// <returns>
         /// An <see cref="ActionResult{T}"/> containing a list of generated quizzes if the operation is successful,
@@ -31,7 +31,7 @@ namespace EngAce.Api.Controllers
         /// <response code="400">The error message if the topic is empty, the total number of questions is out of range, or an error occurs during generation.</response>
         /// <response code="401">The error message if the access key is invalid.</response>
         [HttpPost("Generate")]
-        public async Task<ActionResult<List<Quiz>>> Generate([FromBody] GenerateQuizzes request, EnglishLevel englishLevel = EnglishLevel.Intermediate, short totalQuestions = 10)
+        public async Task<ActionResult<List<Quiz>>> Generate([FromBody] GenerateQuizzes request, JapaneseLevels JapaneseLevels = JapaneseLevels.N3_Intermediate, short totalQuestions = 10)
         {
             if (string.IsNullOrEmpty(_accessKey))
             {
@@ -60,7 +60,7 @@ namespace EngAce.Api.Controllers
                 return BadRequest($"Tổng số câu hỏi không được nhỏ hơn số loại câu hỏi mà bạn chọn");
             }
 
-            var cacheKey = $"GenerateQuiz-{request.Topic.ToLower()}-{string.Join(string.Empty, request.QuizzTypes)}-{englishLevel}-{totalQuestions}";
+            var cacheKey = $"GenerateQuiz-{request.Topic.ToLower()}-{string.Join(string.Empty, request.QuizzTypes)}-{JapaneseLevels}-{totalQuestions}";
             if (_cache.TryGetValue(cacheKey, out var cachedQuizzes))
             {
                 return Ok(cachedQuizzes);
@@ -68,7 +68,7 @@ namespace EngAce.Api.Controllers
 
             try
             {
-                var quizzes = await QuizScope.GenerateQuizes(_accessKey, request.Topic, request.QuizzTypes, englishLevel, totalQuestions);
+                var quizzes = await QuizScope.GenerateQuizes(_accessKey, request.Topic, request.QuizzTypes, JapaneseLevels, totalQuestions);
                 _cache.Set(cacheKey, quizzes, TimeSpan.FromMinutes(totalQuestions));
 
                 _logger.LogInformation("{_accessKey} generated: {Topic} - Quizz Types: {Types}", _accessKey[..10], request.Topic, string.Join("-", request.QuizzTypes.Select(t => t.ToString())));
@@ -83,9 +83,9 @@ namespace EngAce.Api.Controllers
         }
 
         /// <summary>
-        /// Suggests 3 topics based on the specified English level
+        /// Suggests 3 topics based on the specified Japanese level
         /// </summary>
-        /// <param name="englishLevel">The English level for which to suggest topics. Default is Intermediate.</param>
+        /// <param name="JapaneseLevels">The Japanese level for which to suggest topics. Default is N3 (Intermediate).</param>
         /// <returns>
         /// An <see cref="ActionResult{T}"/> containing a list of three suggested topics if the operation is successful,
         /// or an error response if the access key is invalid or if an exception occurs during the suggestion process.
@@ -95,7 +95,7 @@ namespace EngAce.Api.Controllers
         /// <response code="400">The error message if an error occurs during the suggestion process.</response>
         /// <response code="401">The error message if the access key is invalid.</response>
         [HttpGet("Suggest3Topics")]
-        public async Task<ActionResult<List<string>>> Suggest3Topics(EnglishLevel englishLevel = EnglishLevel.Intermediate)
+        public async Task<ActionResult<List<string>>> Suggest3Topics(JapaneseLevels JapaneseLevels = JapaneseLevels.N3_Intermediate)
         {
             if (string.IsNullOrEmpty(_accessKey))
             {
@@ -103,7 +103,7 @@ namespace EngAce.Api.Controllers
             }
 
             const int totalTopics = 3;
-            var cacheKey = $"SuggestTopics-{englishLevel}";
+            var cacheKey = $"SuggestTopics-{JapaneseLevels}";
 
             if (_cache.TryGetValue(cacheKey, out List<string> cachedTopics))
             {
@@ -115,7 +115,7 @@ namespace EngAce.Api.Controllers
 
             try
             {
-                var topics = await QuizScope.SuggestTopcis(_accessKey, englishLevel);
+                var topics = await QuizScope.SuggestTopics(_accessKey, JapaneseLevels);
 
                 var selectedTopics = topics
                     .OrderBy(x => Guid.NewGuid())
@@ -133,19 +133,19 @@ namespace EngAce.Api.Controllers
         }
 
         /// <summary>
-        /// Retrieves a dictionary of English levels with their descriptions
+        /// Retrieves a dictionary of Japanese levels with their descriptions
         /// </summary>
         /// <returns>
-        /// An <see cref="ActionResult{T}"/> containing a dictionary of English levels and their descriptions if the operation is successful.
+        /// An <see cref="ActionResult{T}"/> containing a dictionary of Japanese levels and their descriptions if the operation is successful.
         /// </returns>
-        /// <response code="200">Returns a dictionary of English levels and their descriptions.</response>
-        [HttpGet("GetEnglishLevels")]
+        /// <response code="200">Returns a dictionary of Japanese levels and their descriptions.</response>
+        [HttpGet("GetJapaneseLevelss")]
         [ResponseCache(Duration = QuizScope.MaxTimeAsCachingAge, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public ActionResult<Dictionary<int, string>> GetEnglishLevels()
+        public ActionResult<Dictionary<int, string>> GetJapaneseLevelss()
         {
             var descriptions = Enum
-                .GetValues(typeof(EnglishLevel))
-                .Cast<EnglishLevel>()
+                .GetValues(typeof(JapaneseLevels))
+                .Cast<JapaneseLevels>()
                 .ToDictionary(level => (int)level, level => GeneralHelper.GetEnumDescription(level)
             );
 

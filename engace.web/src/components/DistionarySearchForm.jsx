@@ -12,13 +12,13 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default function DistionarySearchForm({ onClosePannel }) {
+export default function DictionarySearchForm({ onClosePannel }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [keyword, setSearch] = useState(searchParams.get("keyword") ?? "");
   const [context, setContext] = useState(searchParams.get("context") ?? "");
   const [mode, setMode] = useState(
-    searchParams.get("useEnglishToExplain") === "true" ? true : false
+    searchParams.get("useJapaneseToExplain") === "true" ? true : false
   );
 
   const handleSearch = () => {
@@ -28,7 +28,7 @@ export default function DistionarySearchForm({ onClosePannel }) {
           keyword.trim()
         )}&context=${encodeURIComponent(
           context.trim()
-        )}&useEnglishToExplain=${mode}`
+        )}&useJapaneseToExplain=${mode}`
       );
       onClosePannel ? onClosePannel(false) : null;
     }
@@ -37,7 +37,7 @@ export default function DistionarySearchForm({ onClosePannel }) {
   return (
     <Box display="flex" flexDirection="column" gap={2} sx={{ width: "100%" }}>
       <Typography variant="h2" textAlign={"center"}>
-        TỪ ĐIỂN
+        TỪ ĐIỂN NHẬT - VIỆT
       </Typography>
       <Box sx={{ width: "100%" }}>
         <Typography
@@ -54,7 +54,7 @@ export default function DistionarySearchForm({ onClosePannel }) {
           <TextField
             id="search"
             variant="outlined"
-            placeholder="Have a crush on"
+            placeholder="食べる (たべる)"
             value={keyword}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -74,7 +74,7 @@ export default function DistionarySearchForm({ onClosePannel }) {
           <TextField
             id="context"
             variant="outlined"
-            placeholder="I have a crush on you for a long time"
+            placeholder="私は毎日ご飯を食べます"
             value={context}
             onChange={(e) => setContext(e.target.value)}
           />
@@ -99,8 +99,8 @@ export default function DistionarySearchForm({ onClosePannel }) {
             value={mode}
             onChange={(e) => setMode(e.target.value)}
           >
-            <MenuItem value={true}>Anh - Anh</MenuItem>
-            <MenuItem value={false}>Anh - Việt</MenuItem>
+            <MenuItem value={true}>Nhật - Nhật</MenuItem>
+            <MenuItem value={false}>Nhật - Việt</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -132,6 +132,6 @@ export default function DistionarySearchForm({ onClosePannel }) {
   );
 }
 
-DistionarySearchForm.propTypes = {
+DictionarySearchForm.propTypes = {
   onClosePannel: PropTypes.func,
 };

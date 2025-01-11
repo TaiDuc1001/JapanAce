@@ -4,40 +4,34 @@ namespace Entities.Enums
 {
     public enum QuizzType
     {
-        [Name("Chọn từ thích hợp nhất"), Description("Most Suitable Word (Chọn từ thích hợp nhất)")]
+        [Name("Chọn từ thích hợp nhất"), Description("適切な単語を選択する (Chọn từ thích hợp nhất)")]
         WordChoice = 1,
 
-        [Name("Chia động từ"), Description("Verb Conjugation (Chia động từ)")]
+        [Name("Chia động từ"), Description("動詞の活用 (Chia động từ)")]
         VerbConjugation = 2,
 
-        [Name("Câu điều kiện"), Description("Conditional Sentences (Câu điều kiện)")]
-        ConditionalSentences = 3,
+        [Name("Sử dụng trợ từ"), Description("助詞の使い方 (Sử dụng trợ từ)")]
+        ParticleUsage = 3,
 
-        [Name("Câu gián tiếp"), Description("Indirect Speech (Câu gián tiếp)")]
-        IndirectSpeech = 4,
+        [Name("Kính ngữ và thể lịch sự"), Description("敬語と丁寧語 (Kính ngữ và thể lịch sự)")]
+        HonorificsAndKeigo = 4,
 
-        [Name("Điền vào chỗ trống"), Description("Sentence Completion (Điền vào chỗ trống)")]
-        FillTheBlank = 5,
+        [Name("Đọc và viết Kanji"), Description("漢字の読み書き (Đọc và viết Kanji)")]
+        KanjiReadingAndWriting = 5,
 
-        [Name("Đọc hiểu văn bản"), Description("Reading Comprehension (Đọc hiểu văn bản)")]
-        ReadingComprehension = 6,
+        [Name("Cấu trúc câu"), Description("文の構造 (Cấu trúc câu)")]
+        SentenceStructure = 6,
 
-        [Name("Ngữ pháp"), Description("Grammar (Ngữ pháp)")]
-        Grammar = 7,
+        [Name("Từ vựng"), Description("語彙 (Từ vựng)")]
+        Vocabulary = 7,
 
-        [Name("Phối hợp từ"), Description("Collocation (Phối hợp từ)")]
-        Collocations = 8,
+        [Name("Đọc hiểu"), Description("読解 (Đọc hiểu)")]
+        ReadingComprehension = 8,
 
-        [Name("Từ đồng nghĩa/trái nghĩa"), Description("Synonym/Antonym (Từ đồng nghĩa/trái nghĩa)")]
-        SynonymAndAntonym = 9,
+        [Name("Ngữ pháp"), Description("文法 (Ngữ pháp)")]
+        Grammar = 9,
 
-        [Name("Từ vựng"), Description("Vocabulary (Từ vựng)")]
-        Vocabulary = 10,
-
-        [Name("Xác định lỗi sai"), Description("Error Identification (Xác định lỗi sai)")]
-        ErrorIdentification = 11,
-
-        [Name("Chuyển đổi từ loại"), Description("Word Formation (Chuyển đổi từ loại)")]
-        WordFormation = 12
+        [Name("Thành ngữ"), Description("慣用句 (Thành ngữ)")]
+        IdiomaticExpressions = 10
     }
 }

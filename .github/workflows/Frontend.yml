@@ -3,11 +3,11 @@ name: Frontend
 on:
   push:
     paths:
-      - 'engace.web/**'
+      - 'JapanAce.web/**'
 
 env:
-  AZURE_WEBAPP_NAME: engace-app   
-  AZURE_WEBAPP_PACKAGE_PATH: 'engace.web'
+  AZURE_WEBAPP_NAME: JapanAce-app   
+  AZURE_WEBAPP_PACKAGE_PATH: 'JapanAce.web'
   NODE_VERSION: '20.x'               
 
 jobs:

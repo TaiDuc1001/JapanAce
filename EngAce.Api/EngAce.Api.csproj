@@ -5,16 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <ApplicationInsightsResourceId>/subscriptions/b0b6beb1-84d0-476d-a696-da9f1edca5b0/resourceGroups/pet-project/providers/microsoft.insights/components/EngAce</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/b0b6beb1-84d0-476d-a696-da9f1edca5b0/resourceGroups/pet-project/providers/microsoft.insights/components/JapanAce</ApplicationInsightsResourceId>
     <UserSecretsId>28fb93e9-394f-48b5-aeaf-3068be37f91b</UserSecretsId>
     <PublishAot>False</PublishAot>
-    <PackageProjectUrl>https://github.com/phanxuanquang/EngAce</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/phanxuanquang/JapanAce</PackageProjectUrl>
     <Copyright>Phan Xuan Quang</Copyright>
     <Description>Personalize the way you learn and practice English with AI
 
 </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/phanxuanquang/EngAce</RepositoryUrl>
+    <RepositoryUrl>https://github.com/phanxuanquang/JapanAce</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

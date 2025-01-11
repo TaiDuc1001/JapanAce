@@ -1,6 +1,6 @@
 ﻿using Entities.Enums;
 
-namespace EngAce.Api.DTO
+namespace JapanAce.Api.DTO
 {
     public class GenerateQuizzes
     {

@@ -1,6 +1,6 @@
 ![Untitled-2-Recovered](https://github.com/user-attachments/assets/9b2c68a8-0ba2-4655-9c7f-3ce227c8eb86)
 
-EngAce is a cutting-edge, generative AI-powered application designed to revolutionize the way Vietnamese learn English. This app provides a personalized learning experience tailored to each user's unique needs and preferences. EngAce combines the power of artificial intelligence with a comprehensive set of features to create an engaging and effective English learning environment. This repository contains the full source code, documentation, and resources for the EngAce app.
+JapanAce is a cutting-edge, generative AI-powered application designed to revolutionize the way Vietnamese learn English. This app provides a personalized learning experience tailored to each user's unique needs and preferences. JapanAce combines the power of artificial intelligence with a comprehensive set of features to create an engaging and effective English learning environment. This repository contains the full source code, documentation, and resources for the JapanAce app.
 ____________________________
 
 ## :raising_hand_man: Our Team
@@ -14,7 +14,7 @@ ____________________________
 This project is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International** license. See the [LICENSE](./LICENSE) file for details.
 
 ## :rotating_light: Features
-EngAce offers a suite of tools and functionalities aimed at making English learning more accessible, enjoyable, and efficient. The app is designed with four main features as below.
+JapanAce offers a suite of tools and functionalities aimed at making English learning more accessible, enjoyable, and efficient. The app is designed with four main features as below.
 
 ### 1. Intelligent Dictionary
 ![Image](https://i.imgur.com/31vNBVJ.png)
@@ -25,7 +25,7 @@ A comprehensive English dictionary tailored for Vietnamese learners, offering de
 ### 2. Personalized Quizzes
 ![Image](https://i.imgur.com/urR5QGz.png)
 ![Image](https://i.imgur.com/yLNRIHS.png)
-EngAce provides personalized practice exercises to help users improve their English skills. The feature includes:
+JapanAce provides personalized practice exercises to help users improve their English skills. The feature includes:
 - Custom Quizzes: Users can generate multiple-choice quizzes tailored to their proficiency level and the topics they want to practice.
 - Adaptive Learning: The app adapts to the user's performance, providing progressively challenging questions to ensure continuous improvement.
 - Support up to 100 quizzes per request, and up to 12 different types of quizz for users to select.
@@ -39,7 +39,7 @@ Instantly receive detailed feedback and constructive suggestions to enhance writ
 
 ### 4. Chat with AI Expert
 ![Image](https://i.imgur.com/3QV8pZG.png)
-EngAce includes an AI-powered chatbot that acts as an English learning companion. The feature include:
+JapanAce includes an AI-powered chatbot that acts as an English learning companion. The feature include:
 - Interactive Discussions: Users can engage in conversations with the chatbot on various English learning topics.
 - Learning Tips: The chatbot provides tips and advice to help users overcome common learning challenges.
 - Q&A Support: Users can ask the chatbot questions related to English learning and receive informative answers.
@@ -50,7 +50,7 @@ Your data, including your Gemini API Key and Google account information, is secu
 If you have any concerns or questions about our data privacy practices, please feel free to open a new issue.
 
 ## :open_hands: Contribution
-We welcome contributions and encourage you to help this project better and better. If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues](https://github.com/phanxuanquang/EngAce/issues) section of the repository.
+We welcome contributions and encourage you to help this project better and better. If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues](https://github.com/phanxuanquang/JapanAce/issues) section of the repository.
 Before submitting a pull request, please ensure that your changes are well-documented in the Pull Request description.
 
 Thank you for your contribution and for helping to make this project better! :tada:

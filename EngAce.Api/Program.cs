@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "EngAce APIs Documentation",
+        Title = "JapanAce APIs Documentation",
         Version = "v1.0.0",
         Description = "Developed by Phan Xuan Quang."
     });

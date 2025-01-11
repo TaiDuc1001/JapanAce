@@ -9,7 +9,7 @@ export function checkAuthLoader() {
   return null;
 }
 
-export function checkEnglishLevelLoader() {
+export function checkJapaneseLevelsLoader() {
   const token = Cookies.get("token");
   const level = localStorage.getItem("level");
   if (!token) {

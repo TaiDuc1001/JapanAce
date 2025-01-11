@@ -88,7 +88,7 @@ const ResponsiveAppBar = ({ onOpenSidebar }) => {
               flexGrow: 1,
             }}
           >
-            ENGACE
+            JapanAce
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -120,7 +120,7 @@ const ResponsiveAppBar = ({ onOpenSidebar }) => {
               userSelect: "none",
             }}
           >
-            ENGACE
+            JapanAce
           </Typography>
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {navConfig.map((item) => (

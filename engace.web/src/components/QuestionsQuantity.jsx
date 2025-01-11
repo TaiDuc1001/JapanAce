@@ -12,7 +12,7 @@ export default function QuestionsQuantity({ quantity, setQuantity, error }) {
           variant="h6"
           sx={{ color: "primary.black" }}
         >
-          Số lượng câu hỏi
+          問題の数
         </Typography>
       </InputLabel>
       <TextField
@@ -22,7 +22,7 @@ export default function QuestionsQuantity({ quantity, setQuantity, error }) {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
         error={!!error}
-        helperText={!error ? "Số lượng câu hỏi từ 10 đến 100" : error}
+        helperText={!error ? "問題の数は10から100までです" : error}
         inputProps={{
           min: 10,
           max: 100,
@@ -45,6 +45,7 @@ export default function QuestionsQuantity({ quantity, setQuantity, error }) {
     </Box>
   );
 }
+
 QuestionsQuantity.propTypes = {
   quantity: PropTypes.number.isRequired,
   setQuantity: PropTypes.func.isRequired,

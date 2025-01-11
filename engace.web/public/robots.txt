@@ -8,4 +8,4 @@ Disallow: /login/
 Disallow: /register/
 Allow: /
 
-Sitemap: https://engace-app.azurewebsites.net/sitemap.xml
+Sitemap: https://JapanAce-app.azurewebsites.net/sitemap.xml

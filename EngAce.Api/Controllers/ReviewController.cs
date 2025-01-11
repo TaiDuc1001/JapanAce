@@ -4,7 +4,7 @@ using Events;
 using Helper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EngAce.Api.Controllers
+namespace JapanAce.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -13,10 +13,10 @@ namespace EngAce.Api.Controllers
         private readonly string _accessKey = HttpContextHelper.GetAccessKey();
 
         /// <summary>
-        /// Generates the review based on the provided content and English level
+        /// Generates the review based on the provided content and Japanese level
         /// </summary>
         /// <param name="content">The content for which to generate a comment.</param>
-        /// <param name="englishLevel">The English level for the generated comment. Default is Intermediate.</param>
+        /// <param name="JapaneseLevels">The Japanese level for the generated comment. Default is N3 (Intermediate).</param>
         /// <returns>
         /// An <see cref="ActionResult{T}"/> containing the generated comment if the operation is successful,
         /// or an error response if the access key is invalid or an exception occurs during generation.
@@ -26,7 +26,7 @@ namespace EngAce.Api.Controllers
         /// <response code="401">The error message if the access key is invalid.</response>
         [HttpPost("Generate")]
         [ResponseCache(Duration = ReviewScope.OneHourAsCachingAge, Location = ResponseCacheLocation.Client, NoStore = false)]
-        public async Task<ActionResult<Comment>> Generate([FromBody] string content, EnglishLevel englishLevel = EnglishLevel.Intermediate)
+        public async Task<ActionResult<Comment>> Generate([FromBody] string content, JapaneseLevels JapaneseLevels = JapaneseLevels.N3_Intermediate)
         {
             if (string.IsNullOrEmpty(_accessKey))
             {
@@ -34,9 +34,9 @@ namespace EngAce.Api.Controllers
             }
             content = content.Trim();
 
-            if (!GeneralHelper.IsEnglish(content))
+            if (!GeneralHelper.IsJapanese(content))
             {
-                return BadRequest("Nội dung phải là tiếng Anh");
+                return BadRequest("Nội dung phải là tiếng Nhật");
             }
 
             if (GeneralHelper.GetTotalWords(content) < ReviewScope.MinTotalWords)
@@ -51,12 +51,12 @@ namespace EngAce.Api.Controllers
 
             try
             {
-                var result = await ReviewScope.GenerateReview(_accessKey, englishLevel, content);
+                var result = await ReviewScope.GenerateReview(_accessKey, JapaneseLevels, content);
                 return Ok(result);
             }
             catch
             {
-                return Created("Success", "## CẢNH BÁO\n EngAce đang bận đi pha cà phê nên tạm thời vắng mặt. bé yêu vui lòng ngồi chơi 3 phút rồi gửi lại cho EngAce nhận xét nha.\nYêu bé yêu nhiều lắm luôn á!");
+                return Created("Success", "## CẢNH BÁO\n JapanAce đang bận đi pha trà nên tạm thời vắng mặt. Bé yêu vui lòng ngồi chơi 3 phút rồi gửi lại cho JapanAce nhận xét nha.\nYêu bé yêu nhiều lắm luôn á!");
             }
         }
     }

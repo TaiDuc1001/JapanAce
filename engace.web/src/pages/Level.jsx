@@ -16,15 +16,15 @@ import { AppService } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/user.png";
 import AlertCustom from "../common/Alert";
+
 export default function Level() {
   const token = Cookies.get("token");
   const initName = localStorage.getItem("name");
   const initLevel = localStorage.getItem("level");
 
   const [data, setData] = useState({});
-
   const [level, setLevel] = useState(initLevel ?? "1");
-  const [englishLevels, setEnglishLevels] = useState({});
+  const [JapaneseLevelss, setJapaneseLevelss] = useState({});
   const [name, setName] = useState(initName ?? "");
   const [userLoading, setUserLoading] = useState(false);
   const [levelLoading, setLevelLoading] = useState(false);
@@ -36,6 +36,7 @@ export default function Level() {
         setUserLoading(true);
         if (token.startsWith("ya29.")) {
           const response = await AppService.getUserInfo();
+          console.log(response);
           if (response.status === 200) {
             console.log(response.data);
             setData(response.data);
@@ -56,14 +57,14 @@ export default function Level() {
       }
     };
 
-    const fetchEnglishLevels = async () => {
+    const fetchJapaneseLevelss = async () => {
       try {
         setLevelLoading(true);
-        const response = await AppService.getEnglishLevel();
+        const response = await AppService.getJapaneseLevels();
 
         if (response.status === 200) {
           console.log(response.data);
-          setEnglishLevels(response.data);
+          setJapaneseLevelss(response.data);
         }
       } catch (error) {
         console.log(error);
@@ -72,7 +73,7 @@ export default function Level() {
       }
     };
 
-    fetchEnglishLevels();
+    fetchJapaneseLevelss();
     fetchUserInfo();
   }, [token]);
 
@@ -199,10 +200,10 @@ export default function Level() {
                 </FormControl>
               )}
 
-              {Object.keys(englishLevels).length > 0 && (
+              {Object.keys(JapaneseLevelss).length > 0 && (
                 <FormControl sx={{ m: 1, minWidth: 120, width: "100%" }}>
                   <Typography variant="body1" sx={{ marginBottom: "0.5rem" }}>
-                    Trình độ tiếng Anh của bạn
+                    Trình độ tiếng Nhật của bạn
                   </Typography>
                   <Select
                     id="level"
@@ -219,7 +220,7 @@ export default function Level() {
                       },
                     }}
                   >
-                    {Object.keys(englishLevels).map((key) => (
+                    {Object.keys(JapaneseLevelss).map((key) => (
                       <MenuItem
                         key={key}
                         value={key}
@@ -230,8 +231,8 @@ export default function Level() {
                       >
                         {
                           <span>
-                            <strong>{englishLevels[key].split(":")[0]}:</strong>
-                            {englishLevels[key].split(":")[1]}
+                            <strong>{JapaneseLevelss[key].split(":")[0]}:</strong>
+                            {JapaneseLevelss[key].split(":")[1]}
                           </span>
                         }
                       </MenuItem>

@@ -7,7 +7,7 @@ import {
   Hidden,
 } from "@mui/material";
 import DistionarySearchForm from "../components/DistionarySearchForm";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom"; // Ensure this import is present
 import { useEffect, useState } from "react";
 import { AppService } from "../services/api";
 import { MuiMarkdown, getOverrides } from "mui-markdown";
@@ -16,10 +16,9 @@ import ChatLoader from "../common/ChatLoader";
 import AlertCustom from "../common/Alert";
 
 export default function Dictionary() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams(); // Define searchParams using useSearchParams
   const keyword = searchParams.get("keyword");
   const context = searchParams.get("context");
-  const useEnglishToExplain = searchParams.get("useEnglishToExplain");
   const [markdown, setMarkDown] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,23 +28,15 @@ export default function Dictionary() {
   };
 
   useEffect(() => {
-    if (useEnglishToExplain !== "true" && useEnglishToExplain !== "false") {
-      setSearchParams((prev) => ({
-        ...Object.fromEntries(prev.entries()),
-        useEnglishToExplain: false,
-      }));
-    }
     const fetchDictionarySearch = async () => {
       try {
         if (keyword) {
           setLoading(true);
           const response = await AppService.getDictionarySearch(
             keyword,
-            context,
-            useEnglishToExplain
+            context
           );
           if (response.status === 200 || response.status === 201) {
-            console.log(response.data);
             setMarkDown(response.data);
           } else {
             AlertCustom({
@@ -65,7 +56,7 @@ export default function Dictionary() {
     };
 
     fetchDictionarySearch();
-  }, [keyword, context, useEnglishToExplain, setSearchParams]);
+  }, [keyword, context]);
 
   if (keyword) {
     return (

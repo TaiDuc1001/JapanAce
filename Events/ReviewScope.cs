@@ -14,7 +14,7 @@ namespace Events
         public const int OneHourAsCachingAge = 3600;
         public const string EssayCriteria = @"
             1. **Grammar**:
-               - **Serious grammatical errors**: Misusing basic grammatical structures such as incorrect verb conjugation, tense errors, or unclear sentence structures will affect your score.
+               - **Serious grammatical errors**: Misusing basic grammatical structures such as incorrect verb conjugation, particle usage, or unclear sentence structures will affect your score.
                - **Lack of coherence in sentences**: If sentences are unclear or contain too many grammatical errors making it difficult for the reader to understand, points will be deducted.
 
             2. **Vocabulary**:
@@ -29,16 +29,16 @@ namespace Events
                - **Not addressing the main points**: If your essay doesn't directly respond to the prompt or goes off-topic, you will be significantly penalized.
                - **Incomplete response**: If your arguments or responses are underdeveloped or too brief, points will be deducted.
 
-            5. **Spelling and Punctuation**:
-               - **Spelling mistakes**: Too many basic spelling errors will impact your score.
-               - **Incorrect punctuation usage**: Failing to use punctuation correctly, or overusing unnecessary punctuation marks, can also result in point deduction.
+            5. **Kanji and Kana Usage**:
+               - **Incorrect kanji usage**: Using incorrect kanji or failing to use kanji where appropriate will impact your score.
+               - **Overuse of kana**: Overusing hiragana instead of kanji can make your writing seem less professional.
 
             6. **Idea Development**:
                - **Unclear or illogical ideas**: If the ideas in your essay are not well-developed or lack clarity, you will lose points.
                - **Lack of examples or supporting evidence**: In essay tasks, if you fail to provide examples to illustrate your points, the essay will be less convincing and lose points.
 
             7. **Length of the essay**:
-               - **Too short or too long**: Each question in TOEIC Writing has a required length. If you write too little or exceed the word limit, you will lose points.
+               - **Too short or too long**: Each question in JLPT Writing has a required length. If you write too little or exceed the word limit, you will lose points.
 
             8. **Lack of persuasiveness**:
                - **Weak arguments**: In opinion essays, if your arguments are not convincing, clear, or lack logic, you will lose points.
@@ -50,14 +50,14 @@ namespace Events
 
             10. **Task fulfillment**:
                - **Not covering all aspects of the task**: If you don't address all the required aspects of the prompt or miss important points, your score will drop.
-               - **Not completing all parts within the time limit**: If you run out of time and fail to complete all three sections (picture description, sentence writing, and essay writing), you will not achieve the maximum score.
+               - **Not completing all parts within the time limit**: If you run out of time and fail to complete all sections, you will not achieve the maximum score.
 
             11. **Incorrect use of linking words**:
-               - **Misusing linking words**: Using words like 'however', 'therefore', 'in addition', 'on the other hand' incorrectly or in the wrong part of the sentence makes the writing awkward and unclear.
+               - **Misusing linking words**: Using words like 'しかし', 'だから', 'また', '一方で' incorrectly or in the wrong part of the sentence makes the writing awkward and unclear.
                - **Lack of linking words**: Failing to use linking words to connect ideas will make your writing seem disjointed and hard to follow, leading to point deductions.
 
             12. **Inappropriate tone or style**:
-               - **Tone not suitable for the task**: TOEIC Writing essays should be professional, academic, or formal. Using an informal tone or overly casual language will result in your essay being deemed inappropriate.
+               - **Tone not suitable for the task**: JLPT Writing essays should be professional, academic, or formal. Using an informal tone or overly casual language will result in your essay being deemed inappropriate.
                - **Unprofessional language**: Overly colloquial words or phrases will also negatively affect the essay's tone and reduce your score.
 
             13. **Ignoring the audience**:
@@ -65,7 +65,7 @@ namespace Events
 
             14. **Tense and verb form errors**:
                - **Using incorrect tense**: Mistakes in tense usage (past, present, future) not only violate grammatical rules but also confuse the reader.
-               - **Incorrect verb conjugation**: Common errors like failing to add 's' to verbs in the third-person singular form in the present tense can result in deductions.
+               - **Incorrect verb conjugation**: Common errors like failing to conjugate verbs correctly can result in deductions.
 
             15. **Poor paragraph structure**:
                - **Lack of clear paragraph breaks**: Failing to clearly separate ideas into distinct paragraphs will result in a lack of coherence. If you don’t properly segment your writing into individual ideas, the essay will be considered disorganized.
@@ -84,21 +84,21 @@ namespace Events
             In conclusion, to avoid losing points, it is important to practice writing coherently, use vocabulary and grammar correctly, and ensure that your essay addresses the task at hand appropriately.
             ";
 
-        public static async Task<Comment> GenerateReview(string apiKey, EnglishLevel level, string content)
+        public static async Task<Comment> GenerateReview(string apiKey, JapaneseLevels level, string content)
         {
             var instructionBuilder = new StringBuilder();
             var promptBuilder = new StringBuilder();
             var userLevel = GeneralHelper.GetEnumDescription(level);
 
-            instructionBuilder.Append("You are an English teacher with over 20 years of experience, currently working at a large and reputable TOEIC training center. ");
+            instructionBuilder.Append("You are a Japanese teacher with over 20 years of experience, currently working at a large and reputable JLPT training center. ");
             instructionBuilder.AppendLine("Your task is to read and analyze my essay, then provide high-detailed review and suggestions to improve the quality of the writing.");
             instructionBuilder.AppendLine();
-            instructionBuilder.AppendLine("This is the criteria for point deduction of the TOEIC writting assessment, you can use it as a reliable reference for your review:");
+            instructionBuilder.AppendLine("This is the criteria for point deduction of the JLPT writing assessment, you can use it as a reliable reference for your review:");
             instructionBuilder.AppendLine(EssayCriteria.Trim());
             instructionBuilder.AppendLine();
             instructionBuilder.AppendLine("Your output must consist of two main sections as follows:");
             instructionBuilder.AppendLine();
-            instructionBuilder.AppendLine("- **GeneralComment**: This section contains high-detailed comment, written in Vietnamese, for the entire essay. Your comments should be based on the content, writing style, and my level of English.");
+            instructionBuilder.AppendLine("- **GeneralComment**: This section contains high-detailed comment, written in Vietnamese, for the entire essay. Your comments should be based on the content, writing style, and my level of Japanese.");
             instructionBuilder.AppendLine("  - You need to identify spelling mistakes and provide specific corrections.");
             instructionBuilder.AppendLine("  - Detect and explain any grammatical errors (if present), along with clear suggestions for corrections.");
             instructionBuilder.AppendLine("  - Suggest alternatives for words or sentence structures where appropriate, to enhance the flow and contextual relevance of the essay.");
@@ -127,14 +127,14 @@ namespace Events
             instructionBuilder.AppendLine();
             instructionBuilder.AppendLine("```json");
             instructionBuilder.AppendLine("{");
-            instructionBuilder.AppendLine("  \"GeneralComment\": \"Bài viết của bạn có phong cách viết tốt, nhưng vẫn còn một số lỗi ngữ pháp và chính tả. Ví dụ, câu thứ hai sử dụng thì động từ sai. Bạn nên dùng thì quá khứ hoàn thành thay vì thì hiện tại hoàn thành.\"");
-            instructionBuilder.AppendLine("  \"ImprovedContent\": \"**The second sentence** has been corrected to use the past perfect tense. The rest of the essay remains unchanged.\"");
+            instructionBuilder.AppendLine("  \"GeneralComment\": \"Bài viết của bạn có phong cách viết tốt, nhưng vẫn còn một số lỗi ngữ pháp và chính tả. Ví dụ, câu thứ hai sử dụng sai trợ từ 'は' thay vì 'が'.\"");
+            instructionBuilder.AppendLine("  \"ImprovedContent\": \"**Câu thứ hai** đã được sửa lại để sử dụng trợ từ 'が' thay vì 'は'. Phần còn lại của bài viết không thay đổi.\"");
             instructionBuilder.AppendLine("}");
             instructionBuilder.AppendLine("```");
 
-            promptBuilder.AppendLine($"## My current English proficiency level according to CEFR standard:");
+            promptBuilder.AppendLine($"## My current Japanese proficiency level according to JLPT standard:");
             promptBuilder.AppendLine(userLevel);
-            promptBuilder.AppendLine("## My writting for you to review: ");
+            promptBuilder.AppendLine("## My writing for you to review: ");
             promptBuilder.AppendLine(content.Trim());
 
             var result = await Generator.GenerateContent(apiKey, instructionBuilder.ToString(), promptBuilder.ToString(), true, 30, GenerativeModel.Gemini_15_Flash);

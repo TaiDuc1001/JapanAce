@@ -36,7 +36,7 @@ export default function Test() {
     >
       {!loading ? (
         <>
-          <Typography variant="h2">BÀI TẬP</Typography>
+          <Typography variant="h2">日本語の練習</Typography>
           <TestGenerateForm />
         </>
       ) : (

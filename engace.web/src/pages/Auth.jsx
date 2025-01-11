@@ -139,7 +139,7 @@ export default function Auth() {
       >
         <DialogContent>
           <a
-            href="https://github.com/phanxuanquang/EngAce"
+            href="https://github.com/phanxuanquang/JapanAce"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -155,7 +155,7 @@ export default function Auth() {
             />
           </a>
           <Typography sx={{ mt: 2, mb: 1, textAlign: "justify" }}>
-            EngAce là dự án được xây dựng với mục tiêu ứng dụng trí tuệ nhân tạo
+            JapanAce là dự án được xây dựng với mục tiêu ứng dụng trí tuệ nhân tạo
             để hỗ trợ và cá nhân hóa việc tự học tiếng Anh của người Việt. Chúng
             tôi cung cấp những tính năng ưu việt được cá nhân hóa theo trình độ
             và sở thích, nhằm tạo sự thoải mái và hứng thú trong quá trình học.
