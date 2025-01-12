@@ -4,12 +4,12 @@ WORKDIR /source
 
 # Copy only the project files needed for restore
 COPY *.sln .
-COPY EngAce.Api/*.csproj ./EngAce.Api/
+COPY japanace_backend/*.csproj ./japanace_backend/
 COPY Events/*.csproj ./Events/
 COPY Entities/*.csproj ./Entities/
 COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
-COPY EngAce.Web/*.*proj ./EngAce.Web/
+COPY japanace_setup/*.*proj ./japanace_setup/
 
 # Restore packages for all projects
 RUN dotnet restore
@@ -18,7 +18,7 @@ RUN dotnet restore
 COPY . .
 
 # Build and publish the application
-RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app
+RUN dotnet publish ./japanace_backend/japanace_backend.csproj -c Release -o /app
 
 # Use the official .NET runtime image for the final image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
@@ -32,4 +32,4 @@ ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
 # Start the application
-ENTRYPOINT ["dotnet", "EngAce.Api.dll"]
+ENTRYPOINT ["dotnet", "japanace_backend.dll"]

@@ -9,11 +9,13 @@
     <UserSecretsId>28fb93e9-394f-48b5-aeaf-3068be37f91b</UserSecretsId>
     <PublishAot>False</PublishAot>
     <PackageProjectUrl>https://github.com/TaiDuc1001/JapanAce</PackageProjectUrl>
-    <Copyright>Phan Xuan Quang, Bui Minh Tuan, and Phan Tai Duc (forked and modified to JapanAce)</Copyright>
-    <Description>Personalize the way you learn and practice Japanese with AI
+    <Copyright>Phan Tai Duc (forked and modified from EngAce by Phan Xuan Quang and Bui Minh Tuan)</Copyright>
+    <Description>
+      Personalize the way you learn and practice Japanese with AI.
 
-JapanAce is a forked and modified version of EngAce, originally created by Phan Xuan Quang and Bui Minh Tuan, and transformed by Phan Tai Duc.
-</Description>
+      JapanAce is a forked and modified version of EngAce, originally created by Phan Xuan Quang and Bui Minh Tuan, and transformed by Phan Tai Duc.
+      This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+    </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/TaiDuc1001/JapanAce</RepositoryUrl>
   </PropertyGroup>
