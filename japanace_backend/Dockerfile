@@ -1,33 +1,32 @@
 # Use the official .NET SDK image as the base image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /source
-
-# Copy only the project files needed for restore
-COPY *.sln .
-COPY japanace_backend/*.csproj ./japanace_backend/
-COPY Events/*.csproj ./Events/
-COPY Entities/*.csproj ./Entities/
-COPY Gemini/*.csproj ./Gemini/
-COPY Helper/*.csproj ./Helper/
-COPY japanace_setup/*.*proj ./japanace_setup/
-
-# Restore packages for all projects
-RUN dotnet restore
-
-# Copy the rest of the source code
-COPY . .
-
-# Build and publish the application
-RUN dotnet publish ./japanace_backend/japanace_backend.csproj -c Release -o /app
-
-# Use the official .NET runtime image for the final image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Copy the build output from the build stage
-COPY --from=build /app .
+# Copy solution and project files first
+COPY ["JapanAce.sln", "./"]
+COPY ["Entities/Entities.csproj", "Entities/"]
+COPY ["Events/Events.csproj", "Events/"]
+COPY ["Gemini/Gemini.csproj", "Gemini/"]
+COPY ["Helper/Helper.csproj", "Helper/"]
+COPY ["japanace_backend/japanace_backend.csproj", "japanace_backend/"]
+COPY ["japanace_frontend/japanace.web.esproj", "japanace_frontend/"]
+COPY ["japanace_setup/japanace.setup.esproj", "japanace_setup/"]
 
-# Set environment variables and expose ports
+# Restore NuGet packages
+RUN dotnet restore
+
+# Copy the remaining source code
+COPY . .
+
+# Build and publish the API project
+RUN dotnet publish "japanace_backend/japanace_backend.csproj" -c Release -o /app/publish
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Configure the port
 ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
