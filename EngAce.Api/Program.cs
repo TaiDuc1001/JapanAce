@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "JapanAce APIs Documentation",
         Version = "v1.0.0",
-        Description = "Developed by Phan Xuan Quang."
+        Description = "Forked by Phan Tai Duc. Originally developed by Phan Xuan Quang."
     });
 
     c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme

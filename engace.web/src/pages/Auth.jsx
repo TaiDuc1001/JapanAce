@@ -139,7 +139,7 @@ export default function Auth() {
       >
         <DialogContent>
           <a
-            href="https://github.com/phanxuanquang/JapanAce"
+            href="https://github.com/TaiDuc1001/JapanAce"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -156,12 +156,14 @@ export default function Auth() {
           </a>
           <Typography sx={{ mt: 2, mb: 1, textAlign: "justify" }}>
             JapanAce là dự án được xây dựng với mục tiêu ứng dụng trí tuệ nhân tạo
-            để hỗ trợ và cá nhân hóa việc tự học tiếng Anh của người Việt. Chúng
+            để hỗ trợ và cá nhân hóa việc tự học tiếng Nhật của người Việt. Chúng
             tôi cung cấp những tính năng ưu việt được cá nhân hóa theo trình độ
             và sở thích, nhằm tạo sự thoải mái và hứng thú trong quá trình học.
           </Typography>
           <Typography sx={{ textAlign: "justify" }}>
-            Dự án được xây dựng và phát triển bởi <strong>Phan Xuân Quang</strong> và <strong>Bùi Minh Tuấn</strong>.
+            Dự án gốc <strong>EngAce</strong> được xây dựng và phát triển bởi <strong>Phan Xuân Quang</strong> và <strong>Bùi Minh Tuấn</strong>.
+            <br />
+            <strong>JapanAce</strong> là phiên bản được fork và chỉnh sửa bởi <strong>Phan Tài Đức</strong> để phục vụ mục đích học tiếng Nhật.
           </Typography>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center", mb: 2.5, p: 0 }}>

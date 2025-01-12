@@ -8,13 +8,14 @@
     <ApplicationInsightsResourceId>/subscriptions/b0b6beb1-84d0-476d-a696-da9f1edca5b0/resourceGroups/pet-project/providers/microsoft.insights/components/JapanAce</ApplicationInsightsResourceId>
     <UserSecretsId>28fb93e9-394f-48b5-aeaf-3068be37f91b</UserSecretsId>
     <PublishAot>False</PublishAot>
-    <PackageProjectUrl>https://github.com/phanxuanquang/JapanAce</PackageProjectUrl>
-    <Copyright>Phan Xuan Quang</Copyright>
+    <PackageProjectUrl>https://github.com/TaiDuc1001/JapanAce</PackageProjectUrl>
+    <Copyright>Phan Xuan Quang, Bui Minh Tuan, and Phan Tai Duc (forked and modified to JapanAce)</Copyright>
     <Description>Personalize the way you learn and practice Japanese with AI
 
+JapanAce is a forked and modified version of EngAce, originally created by Phan Xuan Quang and Bui Minh Tuan, and transformed by Phan Tai Duc.
 </Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/phanxuanquang/JapanAce</RepositoryUrl>
+    <RepositoryUrl>https://github.com/TaiDuc1001/JapanAce</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj" />
-	  <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel" Version="2.22.0" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,17 @@
 ![Untitled-2-Recovered](https://github.com/user-attachments/assets/9b2c68a8-0ba2-4655-9c7f-3ce227c8eb86)
 
 JapanAce is a cutting-edge, generative AI-powered application designed to revolutionize the way Vietnamese learn Japanese. This app provides a personalized learning experience tailored to each user's unique needs and preferences. JapanAce combines the power of artificial intelligence with a comprehensive set of features to create an engaging and effective Japanese learning environment. This repository contains the full source code, documentation, and resources for the JapanAce app.
+
+**Note**: JapanAce is a forked and modified version of **EngAce**, originally created by **Phan Xuan Quang** and **Bui Minh Tuan**, and transformed by **Phan Tai Duc** to focus on Japanese language learning.
+
 ____________________________
 
 ## :raising_hand_man: Our Team
 | No. | Name | Responsibilities |
 | --- | --- | --- |
-| 1 | [Phan Xuan Quang](https://github.com/phanxuanquang "Phan Xuân Quang") | Product Design, Backend Development, DevOps, AI Model Fine-Tuning|
+| 1 | [Phan Xuan Quang](https://github.com/TaiDuc1001 "Phan Xuân Quang") | Product Design, Backend Development, DevOps, AI Model Fine-Tuning|
 | 2 | [Bui Minh Tuan](https://github.com/tuan20520342 "Bùi Minh Tuấn") | Frontend Development |
+| 3 | [Phan Tai Duc](https://github.com/TaiDuc1001 "Phan Tài Đức") | Forked and Modified EngAce to JapanAce |
 
 ## :triangular_flag_on_post: License
 
@@ -50,9 +54,7 @@ Your data, including your Gemini API Key and Google account information, is secu
 If you have any concerns or questions about our data privacy practices, please feel free to open a new issue.
 
 ## :open_hands: Contribution
-We welcome contributions and encourage you to help this project better and better. If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues](https://github.com/phanxuanquang/JapanAce/issues) section of the repository.
+We welcome contributions and encourage you to help this project better and better. If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues](https://github.com/TaiDuc1001/JapanAce/issues) section of the repository.
 Before submitting a pull request, please ensure that your changes are well-documented in the Pull Request description.
 
 Thank you for your contribution and for helping to make this project better! :tada:
-
-
