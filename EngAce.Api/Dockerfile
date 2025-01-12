@@ -7,6 +7,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends mecab libmecab-dev mecab-ipadic-utf8 && \
     rm -rf /var/lib/apt/lists/*
 
+# Set environment variables for NMeCab
+ENV MECAB_PATH=/usr/lib/libmecab.so
+ENV MECAB_DIC_DIR=/usr/lib/x86_64-linux-gnu/mecab/dic/ipadic
+
 # Copy only the project files needed for restore
 COPY *.sln .
 COPY EngAce.Api/*.csproj ./EngAce.Api/
@@ -32,6 +36,10 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends mecab libmecab-dev mecab-ipadic-utf8 && \
     rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for NMeCab
+ENV MECAB_PATH=/usr/lib/libmecab.so
+ENV MECAB_DIC_DIR=/usr/lib/x86_64-linux-gnu/mecab/dic/ipadic
 
 # Copy the build output from the build stage
 COPY --from=build /app .
