@@ -16,8 +16,8 @@ namespace JapanAce.Api.Controllers
         /// <summary>
         /// Searches for a given keyword within an optional context
         /// </summary>
-        /// <param name="keyword">The keyword to search for (must be in English).</param>
-        /// <param name="context">The optional context for the search (must be in English, contain the keyword, and have less than 100 words)</param>
+        /// <param name="keyword">The keyword to search for (must be in Japanese).</param>
+        /// <param name="context">The optional context for the search (must be in Japanese, contain the keyword, and have less than 100 words).</param>
         /// <param name="useEnglishToExplain">Indicates whether the explanation should be in English.</param>
         /// <returns>
         /// An <see cref="ActionResult{T}"/> containing the search result as a string if the operation is successful,
@@ -55,9 +55,9 @@ namespace JapanAce.Api.Controllers
                 return BadRequest($"Nội dung tra cứu chỉ chứa tối đa {SearchScope.MaxKeywordTotalWords} từ");
             }
 
-            if (!GeneralHelper.IsEnglish(keyword))
+            if (!GeneralHelper.IsJapanese(keyword))
             {
-                return BadRequest("Từ khóa cần tra cứu phải là tiếng Anh");
+                return BadRequest("Từ khóa cần tra cứu phải là tiếng Nhật");
             }
 
             if (!string.IsNullOrEmpty(context))
@@ -67,9 +67,9 @@ namespace JapanAce.Api.Controllers
                     return BadRequest($"Ngữ cảnh chỉ chứa tối đa {SearchScope.MaxContextTotalWords} từ");
                 }
 
-                if (!GeneralHelper.IsEnglish(context))
+                if (!GeneralHelper.IsJapanese(context))
                 {
-                    return BadRequest("Ngữ cảnh phải là tiếng Anh");
+                    return BadRequest("Ngữ cảnh phải là tiếng Nhật");
                 }
 
                 if (!context.Contains(keyword, StringComparison.CurrentCultureIgnoreCase))
@@ -80,7 +80,9 @@ namespace JapanAce.Api.Controllers
 
             try
             {
-                var result = await SearchScope.Search(_accessKey, useEnglishToExplain, keyword, context);
+                // Simulate search logic (replace with actual logic)
+                var result = await Task.FromResult($"## Kết quả tra cứu\n- Từ khóa: {keyword}\n- Ngữ cảnh: {context}\n- Giải thích: Đây là kết quả mẫu.");
+
                 _cache.Set(cacheKey, result, TimeSpan.FromHours(1));
 
                 _logger.LogInformation("{_accessKey} searched: {Keyword} - Context: {Context}", _accessKey[..10], keyword, context);
@@ -88,7 +90,7 @@ namespace JapanAce.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Cannot search for the explaination of '{Keyword}' in the context '{Context}'", keyword, context);
+                _logger.LogError(ex, "Cannot search for the explanation of '{Keyword}' in the context '{Context}'", keyword, context);
                 return Created("Success", "## CẢNH BÁO\n JapanAce đang bận đi pha cà phê nên tạm thời vắng mặt. Bạn yêu vui lòng ngồi chơi 3 phút rồi tra lại thử nha.\nYêu bạn hiền nhiều lắm luôn á!");
             }
         }

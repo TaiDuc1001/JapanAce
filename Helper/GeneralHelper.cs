@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 
 namespace Helper
@@ -34,11 +37,19 @@ namespace Helper
             return (ushort)words.Length;
         }
 
-        public static bool IsEnglish(string input)
-        {
-            char[] englishAlphabetAndPunctuation = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?;:'\"()[]{}$%&*+-/".ToCharArray();
 
-            return input.All(c => englishAlphabetAndPunctuation.Contains(c) || char.IsWhiteSpace(c) || char.IsDigit(c));
+        public static bool IsJapanese(string input)
+        {
+            // Define Japanese character ranges
+            char[] hiragana = Enumerable.Range(0x3041, 0x3096 - 0x3041 + 1).Select(c => (char)c).ToArray();
+            char[] katakana = Enumerable.Range(0x30A1, 0x30FA - 0x30A1 + 1).Select(c => (char)c).ToArray();
+            char[] kanji = Enumerable.Range(0x4E00, 0x9FFF - 0x4E00 + 1).Select(c => (char)c).ToArray();
+
+            // Combine all Japanese characters
+            var japaneseChars = hiragana.Concat(katakana).Concat(kanji).ToArray();
+
+            // Check if the input contains only Japanese characters, digits, or common punctuation
+            return input.All(c => japaneseChars.Contains(c) || char.IsWhiteSpace(c) || char.IsDigit(c) || ".,!?;:'\"()[]{}$%&*+-/".Contains(c));
         }
 
         public static List<int> GenerateRandomNumbers(int x, int y)
