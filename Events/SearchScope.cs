@@ -1,6 +1,10 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Gemini;
+using Helper;
+
 
 namespace Events
 {
