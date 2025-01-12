@@ -2,6 +2,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
+# Install MeCab and its dependencies
+RUN apt-get update && \
+    apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy csproj files for restore
 COPY *.sln .
 COPY EngAce.Api/*.csproj ./EngAce.Api/
@@ -20,7 +25,18 @@ RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+
+# Install MeCab and its dependencies in the runtime image
+RUN apt-get update && \
+    apt-get install -y mecab libmecab-dev mecab-ipadic-utf8 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the build output from the build stage
 COPY --from=build /app .
+
+# Set environment variables and expose ports
 ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
+
+# Start the application
 ENTRYPOINT ["dotnet", "EngAce.Api.dll"]

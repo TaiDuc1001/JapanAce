@@ -29,11 +29,20 @@ namespace Helper
                 return 0;
             }
 
-            char[] delimiters = [' ', '\r', '\n', '\t', '.', ',', ';', ':', '!', '?'];
+            // Initialize MeCab
+            var parameter = new MeCabParam();
+            var tagger = MeCabTagger.Create(parameter);
 
-            string[] words = input.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            // Tokenize the input
+            var nodes = tagger.ParseToNodes(input);
 
-            return (ushort)words.Length;
+            // Count words (excluding punctuation and whitespace)
+            int wordCount = nodes.Count(node =>
+                !string.IsNullOrEmpty(node.Surface) &&
+                !char.IsPunctuation(node.Surface[0]) &&
+                !char.IsWhiteSpace(node.Surface[0]));
+
+            return (ushort)wordCount;
         }
 
         public static bool IsJapanese(string input)
