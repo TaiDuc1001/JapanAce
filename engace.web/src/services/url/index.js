@@ -1,5 +1,6 @@
-//export const DOMAIN_NAME = process.env.REACT_APP_PROD_BE_URL;
-export const DOMAIN_NAME = "https://engace.azurewebsites.net/api";
+// export const DOMAIN_NAME = process.env.REACT_APP_API_URL || "http://localhost:3001/api";
+export const DOMAIN_NAME = process.env.REACT_APP_API_URL || "https://engace.azurewebsites.net/api";
+console.log(DOMAIN_NAME);
 
 export const URL_GET_HEALCHECK = `${DOMAIN_NAME}/Healthcheck`;
 export const URL_GET_JAPANESE_LEVEL = `${DOMAIN_NAME}/Quiz/GetJapaneseLevelss`;
