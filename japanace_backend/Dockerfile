@@ -2,8 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Copy solution and project files first
-COPY *.sln .
+# Copy project files first
 COPY ["Entities/Entities.csproj", "Entities/"]
 COPY ["Events/Events.csproj", "Events/"]
 COPY ["Gemini/Gemini.csproj", "Gemini/"]
@@ -12,13 +11,14 @@ COPY ["japanace_backend/japanace_backend.csproj", "japanace_backend/"]
 COPY ["japanace_frontend/japanace.web.esproj", "japanace_frontend/"]
 COPY ["japanace_setup/japanace.setup.esproj", "japanace_setup/"]
 
-# Restore NuGet packages
-RUN dotnet restore
+# Copy the source code
+COPY ["Entities/", "Entities/"]
+COPY ["Events/", "Events/"]
+COPY ["Gemini/", "Gemini/"]
+COPY ["Helper/", "Helper/"]
+COPY ["japanace_backend/", "japanace_backend/"]
 
-# Copy the remaining source code
-COPY . .
-
-# Build and publish the API project
+# Build and publish the API project directly
 RUN dotnet publish "japanace_backend/japanace_backend.csproj" -c Release -o /app/publish
 
 # Build runtime image
