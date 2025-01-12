@@ -34,7 +34,6 @@ export default function Writing() {
           setLoading(true);
           const response = await AppService.getEssayReview(content, level);
           if (response.status === 200) {
-            console.log(response.data);
             setReview(response.data);
           } else {
             AlertCustom({

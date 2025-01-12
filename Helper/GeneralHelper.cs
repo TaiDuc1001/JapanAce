@@ -38,16 +38,25 @@ namespace Helper
 
         public static bool IsJapanese(string input)
         {
-            // Define Japanese character ranges
-            char[] hiragana = Enumerable.Range(0x3041, 0x3096 - 0x3041 + 1).Select(c => (char)c).ToArray();
-            char[] katakana = Enumerable.Range(0x30A1, 0x30FA - 0x30A1 + 1).Select(c => (char)c).ToArray();
-            char[] kanji = Enumerable.Range(0x4E00, 0x9FFF - 0x4E00 + 1).Select(c => (char)c).ToArray();
+            // Hiragana range: 0x3040 to 0x309F
+            char[] hiragana = Enumerable.Range(0x3040, 0x309F - 0x3040 + 1).Select(c => (char)c).ToArray();
 
-            // Combine all Japanese characters
-            var japaneseChars = hiragana.Concat(katakana).Concat(kanji).ToArray();
+            // Katakana range: 0x30A0 to 0x30FF
+            char[] katakana = Enumerable.Range(0x30A0, 0x30FF - 0x30A0 + 1).Select(c => (char)c).ToArray();
 
-            // Check if the input contains only Japanese characters, digits, or common punctuation
-            return input.All(c => japaneseChars.Contains(c) || char.IsWhiteSpace(c) || char.IsDigit(c) || ".,!?;:'\"()[]{}$%&*+-/".Contains(c));
+            // Kanji range: 0x4E00 to 0x9FFF (common Kanji) and 0x3400 to 0x4DBF (rare Kanji)
+            char[] kanji = Enumerable.Range(0x4E00, 0x9FFF - 0x4E00 + 1)
+                                .Concat(Enumerable.Range(0x3400, 0x4DBF - 0x3400 + 1))
+                                .Select(c => (char)c).ToArray();
+
+            // Japanese punctuation marks
+            string japanesePunctuation = "。、！？；：・「」『』（）【】｛｝〈〉《》〔〕";
+
+            // Combine all allowed characters
+            var japaneseChars = hiragana.Concat(katakana).Concat(kanji).Concat(japanesePunctuation).ToArray();
+
+            // Check if all characters in the input are allowed
+            return input.All(c => japaneseChars.Contains(c) || char.IsWhiteSpace(c) || char.IsDigit(c));
         }
 
         public static List<int> GenerateRandomNumbers(int x, int y)

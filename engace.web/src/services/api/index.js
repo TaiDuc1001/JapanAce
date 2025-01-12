@@ -36,9 +36,15 @@ export const AppService = {
   },
 
   getEssayReview: (content, level) => {
+    console.log(content)
     return baseRequest.post(
       `${UrlApi.URL_GET_ESSAY_REVIEW}?JapaneseLevels=${level}`,
-      content
+      content,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
     );
   },
 
