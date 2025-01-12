@@ -80,11 +80,11 @@ namespace JapanAce.Api.Controllers
             if (!string.IsNullOrEmpty(context))
             {
                 // Validate context length
-                if (GeneralHelper.GetTotalWords(context) > SearchScope.MaxContextTotalWords)
-                {
-                    _logger.LogWarning("Context exceeds maximum allowed words: {Context}", context);
-                    return BadRequest($"Ngữ cảnh chỉ chứa tối đa {SearchScope.MaxContextTotalWords} từ");
-                }
+                // if (GeneralHelper.GetTotalWords(context) > SearchScope.MaxContextTotalWords)
+                // {
+                //     _logger.LogWarning("Context exceeds maximum allowed words: {Context}", context);
+                //     return BadRequest($"Ngữ cảnh chỉ chứa tối đa {SearchScope.MaxContextTotalWords} từ");
+                // }
 
                 // Validate Japanese input for context
                 if (!GeneralHelper.IsJapanese(context))
