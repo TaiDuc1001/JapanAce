@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Threading.Tasks;
 
 namespace Events
 {
@@ -7,7 +8,7 @@ namespace Events
         public const sbyte MaxKeywordTotalWords = 7;
         public const sbyte MaxContextTotalWords = 15;
 
-        public static async Task<string> Search(string apiKey, bool useEnglish, string keyword, string context)
+        public static async Task<string> Search(string apiKey, bool useJapanese, string keyword, string context)
         {
             var instructionForVietnamese = @"
 Bạn là một từ điển Nhật-Việt chuyên nghiệp, có nhiệm vụ cung cấp bản dịch và giải thích tiếng Việt chi tiết cho từ hoặc cụm từ tiếng Nhật. Nhiệm vụ của bạn là phân tích từ khóa tiếng Nhật được cung cấp, đưa ra bản dịch tiếng Việt và giải nghĩa của từ chính xác, đồng thời cung cấp thông tin chi tiết về cách dùng, ngữ cảnh, và các khía cạnh ngữ pháp, lịch sử của từ.
@@ -59,8 +60,8 @@ Người dùng có thể nhập vào từ hoặc cụm từ tiếng Nhật để
    - **Thông tin thú vị ít người biết**:
      - Cung cấp các thông tin thú vị hoặc ít người biết về từ/cụm từ, như cách dùng đặc biệt trong văn hóa, sự khác biệt vùng miền, hoặc tiếng lóng, với bản dịch và giải thích tiếng Việt.";
 
-            var instructionForEnglish = @$"
-You are an expert Japanese-English dictionary with the task of providing comprehensive definitions, explanations, and related information for Japanese words or phrases. Your goal is to help users understand the meaning, usage, and history of the word or phrase they request.
+            var instructionForJapanese = @$"
+You are an expert Japanese-Japanese dictionary with the task of providing comprehensive definitions, explanations, and related information for Japanese words or phrases. Your goal is to help users understand the meaning, usage, and history of the word or phrase they request.
 
 Users will input Japanese words or phrases with their context (may be included) for definition and explanation. Sometimes, the word or phrase may not be valid or may not exist in Japanese, and in such cases, you need to respond accordingly.
 
@@ -81,7 +82,7 @@ Users will input Japanese words or phrases with their context (may be included) 
      - Specify the part of speech (e.g., noun, verb, adjective, etc.). If it's an idiomatic expression, just indicate the type without phonetic spelling.
 
    - **Definition and Explanation**:
-     - Provide the English definition of the word or phrase.
+     - Provide the Japanese definition of the word or phrase.
      - If the word/phrase is used in a specific context, explain its meaning in that context.
      - If there is no context, list up to 10 common meanings or uses of the word, explaining the nuances of each meaning and how it can be applied in different situations.
 
@@ -118,7 +119,8 @@ Users will input Japanese words or phrases with their context (may be included) 
                 promptBuilder.AppendLine($"- {context.Trim()}");
             }
 
-            return await Gemini.Generator.GenerateContent(apiKey, useEnglish ? instructionForEnglish : instructionForVietnamese, promptBuilder.ToString().Trim(), false, 50);
+            // Generate the response using the Gemini API
+            return await Gemini.Generator.GenerateContent(apiKey, useJapanese ? instructionForJapanese : instructionForVietnamese, promptBuilder.ToString().Trim(), false, 50);
         }
     }
 }

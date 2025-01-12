@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -36,7 +35,6 @@ namespace Helper
 
             return (ushort)words.Length;
         }
-
 
         public static bool IsJapanese(string input)
         {

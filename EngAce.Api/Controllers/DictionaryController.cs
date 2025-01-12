@@ -18,7 +18,7 @@ namespace JapanAce.Api.Controllers
         /// </summary>
         /// <param name="keyword">The keyword to search for (must be in Japanese).</param>
         /// <param name="context">The optional context for the search (must be in Japanese, contain the keyword, and have less than 100 words).</param>
-        /// <param name="useEnglishToExplain">Indicates whether the explanation should be in English.</param>
+        /// <param name="useJapaneseToExplain">Indicates whether the explanation should be in Japanese.</param>
         /// <returns>
         /// An <see cref="ActionResult{T}"/> containing the search result as a string if the operation is successful,
         /// or an error response if validation fails or an exception occurs during the search.
@@ -29,7 +29,7 @@ namespace JapanAce.Api.Controllers
         /// <response code="401">Invalid Access Key</response>
         [HttpGet("Search")]
         [ResponseCache(Duration = QuizScope.ThreeDaysAsCachingAge, Location = ResponseCacheLocation.Any, NoStore = false)]
-        public async Task<ActionResult<string>> Search(string keyword, string? context, bool useEnglishToExplain = false)
+        public async Task<ActionResult<string>> Search(string keyword, string? context, bool useJapaneseToExplain = false)
         {
             if (string.IsNullOrEmpty(_accessKey))
             {
@@ -44,7 +44,7 @@ namespace JapanAce.Api.Controllers
             context = string.IsNullOrEmpty(context) ? "" : context.Trim();
             keyword = keyword.ToLower().Trim();
 
-            var cacheKey = $"Search-{keyword}-{context.ToLower()}-{useEnglishToExplain}";
+            var cacheKey = $"Search-{keyword}-{context.ToLower()}-{useJapaneseToExplain}";
             if (_cache.TryGetValue(cacheKey, out string cachedResult))
             {
                 return Ok(cachedResult);
@@ -80,18 +80,14 @@ namespace JapanAce.Api.Controllers
 
             try
             {
-                // Simulate search logic (replace with actual logic)
-                var result = await Task.FromResult($"## Kết quả tra cứu\n- Từ khóa: {keyword}\n- Ngữ cảnh: {context}\n- Giải thích: Đây là kết quả mẫu.");
-
+                var result = await SearchScope.Search(_accessKey, useJapaneseToExplain, keyword, context);
                 _cache.Set(cacheKey, result, TimeSpan.FromHours(1));
-
-                _logger.LogInformation("{_accessKey} searched: {Keyword} - Context: {Context}", _accessKey[..10], keyword, context);
-                return Created("Success", result);
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Cannot search for the explanation of '{Keyword}' in the context '{Context}'", keyword, context);
-                return Created("Success", "## CẢNH BÁO\n JapanAce đang bận đi pha cà phê nên tạm thời vắng mặt. Bạn yêu vui lòng ngồi chơi 3 phút rồi tra lại thử nha.\nYêu bạn hiền nhiều lắm luôn á!");
+                return Ok("## CẢNH BÁO\n JapanAce đang bận đi pha cà phê nên tạm thời vắng mặt. Bạn yêu vui lòng ngồi chơi 3 phút rồi tra lại thử nha.\nYêu bạn hiền nhiều lắm luôn á!");
             }
         }
     }

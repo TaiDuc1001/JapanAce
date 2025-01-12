@@ -24,13 +24,13 @@ export const AppService = {
     return baseRequest.get(UrlApi.URL_GET_JAPANESE_LEVEL);
   },
 
-  getDictionarySearch: (keyword, context, useEnglishToExplain) => {
+  getDictionarySearch: (keyword, context, useJapaneseToExplain) => {
     return baseRequest.get(
       `${UrlApi.URL_GET_DICTIONARY_SEARCH}?keyword=${encodeURIComponent(
         keyword
       )}&context=${encodeURIComponent(
         context ?? ""
-      )}&useEnglishToExplain=${encodeURIComponent(useEnglishToExplain)}`
+      )}&useJapaneseToExplain=${encodeURIComponent(useJapaneseToExplain)}`
     );
   },
 
