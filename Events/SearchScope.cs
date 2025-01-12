@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Events
 {
@@ -8,9 +9,103 @@ namespace Events
         public const sbyte MaxKeywordTotalWords = 7;
         public const sbyte MaxContextTotalWords = 15;
 
+        // Logger for debugging and error tracking
+        private static readonly ILogger _logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger("SearchScope");
+
         public static async Task<string> Search(string apiKey, bool useJapanese, string keyword, string context)
         {
-            var instructionForVietnamese = @"
+            // Validate API key
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                _logger.LogError("API key is missing or invalid.");
+                return "Không thể tìm thấy kết quả phù hợp";
+            }
+
+            // Validate keyword
+            if (string.IsNullOrEmpty(keyword))
+            {
+                _logger.LogWarning("Keyword is empty or null.");
+                return "Không được để trống từ khóa";
+            }
+
+            keyword = keyword.Trim();
+            context = context?.Trim() ?? string.Empty;
+
+            // Validate keyword length
+            if (GeneralHelper.GetTotalWords(keyword) > MaxKeywordTotalWords)
+            {
+                _logger.LogWarning("Keyword exceeds maximum allowed words: {Keyword}", keyword);
+                return $"Nội dung tra cứu chỉ chứa tối đa {MaxKeywordTotalWords} từ";
+            }
+
+            // Validate context length
+            if (!string.IsNullOrEmpty(context) && GeneralHelper.GetTotalWords(context) > MaxContextTotalWords)
+            {
+                _logger.LogWarning("Context exceeds maximum allowed words: {Context}", context);
+                return $"Ngữ cảnh chỉ chứa tối đa {MaxContextTotalWords} từ";
+            }
+
+            // Validate Japanese input
+            if (!GeneralHelper.IsJapanese(keyword))
+            {
+                _logger.LogWarning("Keyword is not in Japanese: {Keyword}", keyword);
+                return "Từ khóa cần tra cứu phải là tiếng Nhật";
+            }
+
+            if (!string.IsNullOrEmpty(context) && !GeneralHelper.IsJapanese(context))
+            {
+                _logger.LogWarning("Context is not in Japanese: {Context}", context);
+                return "Ngữ cảnh phải là tiếng Nhật";
+            }
+
+            if (!string.IsNullOrEmpty(context) && !context.Contains(keyword, StringComparison.CurrentCultureIgnoreCase))
+            {
+                _logger.LogWarning("Context does not contain the keyword: {Keyword}", keyword);
+                return "Ngữ cảnh phải chứa từ khóa cần tra";
+            }
+
+            // Build the prompt
+            var promptBuilder = new StringBuilder();
+            promptBuilder.AppendLine("## Keyword:");
+            promptBuilder.AppendLine($"- {keyword}");
+            if (!string.IsNullOrEmpty(context))
+            {
+                promptBuilder.AppendLine("## Context of the Keyword:");
+                promptBuilder.AppendLine($"- {context}");
+            }
+
+            // Log the prompt for debugging
+            _logger.LogInformation("Generated Prompt: {Prompt}", promptBuilder.ToString());
+
+            // Generate the response using the Gemini API
+            try
+            {
+                var response = await Gemini.Generator.GenerateContent(
+                    apiKey,
+                    useJapanese ? instructionForJapanese : instructionForVietnamese,
+                    promptBuilder.ToString().Trim(),
+                    false,
+                    50
+                );
+
+                if (string.IsNullOrEmpty(response))
+                {
+                    _logger.LogWarning("Gemini API returned an empty response for keyword: {Keyword}", keyword);
+                    return "Không thể tìm thấy kết quả phù hợp";
+                }
+
+                _logger.LogInformation("Successfully generated response for keyword: {Keyword}", keyword);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to generate content for keyword: {Keyword}", keyword);
+                return "Không thể tìm thấy kết quả phù hợp";
+            }
+        }
+
+        // System instructions for Vietnamese
+        private static readonly string instructionForVietnamese = @"
 Bạn là một từ điển Nhật-Việt chuyên nghiệp, có nhiệm vụ cung cấp bản dịch và giải thích tiếng Việt chi tiết cho từ hoặc cụm từ tiếng Nhật. Nhiệm vụ của bạn là phân tích từ khóa tiếng Nhật được cung cấp, đưa ra bản dịch tiếng Việt và giải nghĩa của từ chính xác, đồng thời cung cấp thông tin chi tiết về cách dùng, ngữ cảnh, và các khía cạnh ngữ pháp, lịch sử của từ.
 
 Người dùng có thể nhập vào từ hoặc cụm từ tiếng Nhật để tra cứu kèm theo ngữ cảnh chứa từ đó (có thể có hoặc không). Đôi khi từ khóa không hợp lệ hoặc không thuộc tiếng Nhật, và trong trường hợp này, bạn cần phản hồi phù hợp để giúp người dùng hiểu rõ.
@@ -60,7 +155,8 @@ Người dùng có thể nhập vào từ hoặc cụm từ tiếng Nhật để
    - **Thông tin thú vị ít người biết**:
      - Cung cấp các thông tin thú vị hoặc ít người biết về từ/cụm từ, như cách dùng đặc biệt trong văn hóa, sự khác biệt vùng miền, hoặc tiếng lóng, với bản dịch và giải thích tiếng Việt.";
 
-            var instructionForJapanese = @$"
+        // System instructions for Japanese
+        private static readonly string instructionForJapanese = @"
 You are an expert Japanese-Japanese dictionary with the task of providing comprehensive definitions, explanations, and related information for Japanese words or phrases. Your goal is to help users understand the meaning, usage, and history of the word or phrase they request.
 
 Users will input Japanese words or phrases with their context (may be included) for definition and explanation. Sometimes, the word or phrase may not be valid or may not exist in Japanese, and in such cases, you need to respond accordingly.
@@ -107,20 +203,5 @@ Users will input Japanese words or phrases with their context (may be included) 
 
    - **Interesting Facts or Lesser-Known Information**:
      - Share interesting facts about the word or phrase, such as how it is used in different dialects, historical context, or any uncommon uses or facts that people may not be aware of.";
-
-            var promptBuilder = new StringBuilder();
-            keyword = keyword.Trim();
-
-            promptBuilder.AppendLine("## Keyword:");
-            promptBuilder.AppendLine($"- {keyword}");
-            if (!string.IsNullOrEmpty(context))
-            {
-                promptBuilder.AppendLine("## Context of the Keyword:");
-                promptBuilder.AppendLine($"- {context.Trim()}");
-            }
-
-            // Generate the response using the Gemini API
-            return await Gemini.Generator.GenerateContent(apiKey, useJapanese ? instructionForJapanese : instructionForVietnamese, promptBuilder.ToString().Trim(), false, 50);
-        }
     }
 }
