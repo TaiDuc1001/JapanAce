@@ -39,10 +39,10 @@ namespace JapanAce.Api.Controllers
                 return BadRequest("Nội dung phải là tiếng Nhật");
             }
 
-            if (GeneralHelper.GetTotalWords(content) < ReviewScope.MinTotalWords)
-            {
-                return BadRequest($"Bài viết phải dài tối thiểu {ReviewScope.MinTotalWords} từ.");
-            }
+            // if (GeneralHelper.GetTotalWords(content) < ReviewScope.MinTotalWords)
+            // {
+            //     return BadRequest($"Bài viết phải dài tối thiểu {ReviewScope.MinTotalWords} từ.");
+            // }
 
             if (GeneralHelper.GetTotalWords(content) > ReviewScope.MaxTotalWords)
             {

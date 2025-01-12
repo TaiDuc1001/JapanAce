@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using NMeCab;
+// using NMeCab;
 
 namespace Helper
 {
@@ -23,28 +23,28 @@ namespace Helper
             }
         }
 
-        public static ushort GetTotalWords(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return 0;
-            }
+        // public static ushort GetTotalWords(string input)
+        // {
+        //     if (string.IsNullOrWhiteSpace(input))
+        //     {
+        //         return 0;
+        //     }
 
-            // Initialize MeCab
-            var parameter = new MeCabParam();
-            var tagger = MeCabTagger.Create(parameter);
+        //     // Initialize MeCab
+        //     var parameter = new MeCabParam();
+        //     var tagger = MeCabTagger.Create(parameter);
 
-            // Tokenize the input
-            var nodes = tagger.ParseToNodes(input);
+        //     // Tokenize the input
+        //     var nodes = tagger.ParseToNodes(input);
 
-            // Count words (excluding punctuation and whitespace)
-            int wordCount = nodes.Count(node =>
-                !string.IsNullOrEmpty(node.Surface) &&
-                !char.IsPunctuation(node.Surface[0]) &&
-                !char.IsWhiteSpace(node.Surface[0]));
+        //     // Count words (excluding punctuation and whitespace)
+        //     int wordCount = nodes.Count(node =>
+        //         !string.IsNullOrEmpty(node.Surface) &&
+        //         !char.IsPunctuation(node.Surface[0]) &&
+        //         !char.IsWhiteSpace(node.Surface[0]));
 
-            return (ushort)wordCount;
-        }
+        //     return (ushort)wordCount;
+        // }
 
         public static bool IsJapanese(string input)
         {
