@@ -4,7 +4,7 @@ WORKDIR /source
 
 # Copy csproj files for restore
 COPY *.sln .
-COPY JapanAce.Api/*.csproj ./JapanAce.Api/
+COPY EngAce.Api/*.csproj ./EngAce.Api/
 COPY Events/*.csproj ./Events/
 COPY Entities/*.csproj ./Entities/
 COPY Gemini/*.csproj ./Gemini/
@@ -21,4 +21,4 @@ RUN dotnet publish -c Release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["dotnet", "JapanAce.Api.dll"]
+ENTRYPOINT ["dotnet", "EngAce.Api.dll"]
