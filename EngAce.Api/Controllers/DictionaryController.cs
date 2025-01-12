@@ -81,6 +81,10 @@ namespace JapanAce.Api.Controllers
             try
             {
                 var result = await SearchScope.Search(_accessKey, useJapaneseToExplain, keyword, context);
+                if (string.IsNullOrEmpty(result))
+                {
+                    return BadRequest("Không thể tìm thấy kết quả phù hợp");
+                }
                 _cache.Set(cacheKey, result, TimeSpan.FromHours(1));
                 return Ok(result);
             }
