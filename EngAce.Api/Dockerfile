@@ -11,14 +11,16 @@ COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
 
 # Restore packages
-RUN dotnet restore
+RUN dotnet restore ./EngAce.Api/EngAce.Api.csproj
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app .
+ENV ASPNETCORE_URLS=http://+:80
+EXPOSE 80
 ENTRYPOINT ["dotnet", "EngAce.Api.dll"]
