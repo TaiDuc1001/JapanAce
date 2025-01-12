@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy solution and project files first
-COPY ["JapanAce.sln", "./"]
+COPY *.sln .
 COPY ["Entities/Entities.csproj", "Entities/"]
 COPY ["Events/Events.csproj", "Events/"]
 COPY ["Gemini/Gemini.csproj", "Gemini/"]
