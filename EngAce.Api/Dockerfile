@@ -22,7 +22,7 @@ RUN dotnet restore ./EngAce.Api/EngAce.Api.csproj
 COPY . .
 
 # Build and publish the application
-RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app --no-restore
+RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app
 
 # Use the official .NET runtime image for the final image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
