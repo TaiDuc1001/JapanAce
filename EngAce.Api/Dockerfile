@@ -20,6 +20,10 @@ COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
 COPY EngAce.Web/*.*proj ./EngAce.Web/
 
+# Add NMeCab package reference
+RUN dotnet add Helper/Helper.csproj package NMeCab
+RUN dotnet restore Helper/Helper.csproj
+
 # Clear NuGet cache and restore packages
 RUN dotnet nuget locals all --clear
 RUN dotnet restore Helper/Helper.csproj
