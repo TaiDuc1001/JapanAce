@@ -2,10 +2,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
-# Install MeCab and its dependencies
+# Install MeCab dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends mecab libmecab-dev mecab-ipadic-utf8 && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends mecab libmecab-dev mecab-ipadic-utf8
 
 # Set environment variables for NMeCab
 ENV MECAB_PATH=/usr/lib/libmecab.so
@@ -19,7 +18,7 @@ COPY Events/*.csproj ./Events/
 COPY Entities/*.csproj ./Entities/
 COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
-COPY EngAce.Web/*.*proj ./EngAce.Web/  # Copy all project files for EngAce.Web
+COPY EngAce.Web/*.*proj ./EngAce.Web/
 
 # Restore packages for all projects
 RUN dotnet restore
