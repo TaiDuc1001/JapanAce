@@ -44,10 +44,10 @@ namespace JapanAce.Api.Controllers
             //     return BadRequest($"Bài viết phải dài tối thiểu {ReviewScope.MinTotalWords} từ.");
             // }
 
-            if (GeneralHelper.GetTotalWords(content) > ReviewScope.MaxTotalWords)
-            {
-                return BadRequest($"Bài viết không được dài hơn {ReviewScope.MaxTotalWords} từ.");
-            }
+            // if (GeneralHelper.GetTotalWords(content) > ReviewScope.MaxTotalWords)
+            // {
+            //     return BadRequest($"Bài viết không được dài hơn {ReviewScope.MaxTotalWords} từ.");
+            // }
 
             try
             {

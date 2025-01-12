@@ -36,18 +36,18 @@ namespace Events
             context = context?.Trim() ?? string.Empty;
 
             // Validate keyword length
-            if (GeneralHelper.GetTotalWords(keyword) > MaxKeywordTotalWords)
-            {
-                _logger.LogWarning("Keyword exceeds maximum allowed words: {Keyword}", keyword);
-                return $"Nội dung tra cứu chỉ chứa tối đa {MaxKeywordTotalWords} từ";
-            }
+            // if (GeneralHelper.GetTotalWords(keyword) > MaxKeywordTotalWords)
+            // {
+            //     _logger.LogWarning("Keyword exceeds maximum allowed words: {Keyword}", keyword);
+            //     return $"Nội dung tra cứu chỉ chứa tối đa {MaxKeywordTotalWords} từ";
+            // }
 
             // Validate context length
-            if (!string.IsNullOrEmpty(context) && GeneralHelper.GetTotalWords(context) > MaxContextTotalWords)
-            {
-                _logger.LogWarning("Context exceeds maximum allowed words: {Context}", context);
-                return $"Ngữ cảnh chỉ chứa tối đa {MaxContextTotalWords} từ";
-            }
+            // if (!string.IsNullOrEmpty(context) && GeneralHelper.GetTotalWords(context) > MaxContextTotalWords)
+            // {
+            //     _logger.LogWarning("Context exceeds maximum allowed words: {Context}", context);
+            //     return $"Ngữ cảnh chỉ chứa tối đa {MaxContextTotalWords} từ";
+            // }
 
             // Validate Japanese input
             if (!GeneralHelper.IsJapanese(keyword))

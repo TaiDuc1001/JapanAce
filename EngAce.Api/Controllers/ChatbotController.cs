@@ -30,10 +30,10 @@ namespace JapanAce.Api.Controllers
                 return Ok("Gửi vội vậy bé yêu! Chưa nhập câu hỏi kìa.");
             }
 
-            if (GeneralHelper.GetTotalWords(request.Question) > 30)
-            {
-                return Ok("Hỏi ngắn thôi bé yêu, bộ mắc hỏi quá hay gì 💢\nHỏi câu nào dưới 30 từ thôi, để thời gian cho anh suy nghĩ với chứ.");
-            }
+            // if (GeneralHelper.GetTotalWords(request.Question) > 30)
+            // {
+            //     return Ok("Hỏi ngắn thôi bé yêu, bộ mắc hỏi quá hay gì 💢\nHỏi câu nào dưới 30 từ thôi, để thời gian cho anh suy nghĩ với chứ.");
+            // }
 
             try
             {

@@ -63,11 +63,11 @@ namespace JapanAce.Api.Controllers
             }
 
             // Validate keyword length
-            if (GeneralHelper.GetTotalWords(keyword) > SearchScope.MaxKeywordTotalWords)
-            {
-                _logger.LogWarning("Keyword exceeds maximum allowed words: {Keyword}", keyword);
-                return BadRequest($"Nội dung tra cứu chỉ chứa tối đa {SearchScope.MaxKeywordTotalWords} từ");
-            }
+            // if (GeneralHelper.GetTotalWords(keyword) > SearchScope.MaxKeywordTotalWords)
+            // {
+            //     _logger.LogWarning("Keyword exceeds maximum allowed words: {Keyword}", keyword);
+            //     return BadRequest($"Nội dung tra cứu chỉ chứa tối đa {SearchScope.MaxKeywordTotalWords} từ");
+            // }
 
             // Validate Japanese input for keyword
             if (!GeneralHelper.IsJapanese(keyword))
