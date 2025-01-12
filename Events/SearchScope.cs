@@ -1,8 +1,5 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc; // For HttpGet, ResponseCache, ActionResult, etc.
-using Microsoft.Extensions.Caching.Memory; // For IMemoryCache
-using Microsoft.Extensions.Logging; // For ILogger
 
 namespace Events
 {
