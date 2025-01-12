@@ -20,8 +20,10 @@ COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
 COPY EngAce.Web/*.*proj ./EngAce.Web/
 
-# Restore packages for all projects
-RUN dotnet restore
+# Clear NuGet cache and restore packages
+RUN dotnet nuget locals all --clear
+RUN dotnet restore Helper/Helper.csproj
+RUN dotnet restore EngAce.Api/EngAce.Api.csproj
 
 # Copy the rest of the source code
 COPY . .
@@ -29,7 +31,7 @@ COPY . .
 # Build and publish the application
 RUN dotnet publish ./EngAce.Api/EngAce.Api.csproj -c Release -o /app
 
-# Use the official .NET runtime image for the final image
+# Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
@@ -43,7 +45,7 @@ ENV MECAB_PATH=/usr/lib/libmecab.so
 ENV MECAB_DIC_DIR=/usr/lib/x86_64-linux-gnu/mecab/dic/ipadic
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
-# Copy the build output from the build stage
+# Copy the published application
 COPY --from=build /app .
 
 # Set environment variables and expose ports
