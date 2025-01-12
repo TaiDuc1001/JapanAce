@@ -25,6 +25,7 @@ export const AppService = {
   },
 
   getDictionarySearch: (keyword, context, useJapaneseToExplain) => {
+    console.log(useJapaneseToExplain)
     return baseRequest.get(
       `${UrlApi.URL_GET_DICTIONARY_SEARCH}?keyword=${encodeURIComponent(
         keyword

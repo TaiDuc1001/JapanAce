@@ -19,6 +19,7 @@ export default function Dictionary() {
   const [searchParams] = useSearchParams(); // Define searchParams using useSearchParams
   const keyword = searchParams.get("keyword");
   const context = searchParams.get("context");
+  const useJapaneseToExplain = searchParams.get("useJapaneseToExplain");
   const [markdown, setMarkDown] = useState("");
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,8 +35,10 @@ export default function Dictionary() {
           setLoading(true);
           const response = await AppService.getDictionarySearch(
             keyword,
-            context
+            context,
+            useJapaneseToExplain
           );
+          console.log(response);
           if (response.status === 200 || response.status === 201) {
             setMarkDown(response.data);
           } else {
@@ -56,7 +59,7 @@ export default function Dictionary() {
     };
 
     fetchDictionarySearch();
-  }, [keyword, context]);
+  }, [keyword, context, useJapaneseToExplain]);
 
   if (keyword) {
     return (
