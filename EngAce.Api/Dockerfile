@@ -10,6 +10,7 @@ RUN apt-get update && \
 # Set environment variables for NMeCab
 ENV MECAB_PATH=/usr/lib/libmecab.so
 ENV MECAB_DIC_DIR=/usr/lib/x86_64-linux-gnu/mecab/dic/ipadic
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 # Copy only the project files needed for restore
 COPY *.sln .
@@ -19,8 +20,8 @@ COPY Entities/*.csproj ./Entities/
 COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
 
-# Restore packages
-RUN dotnet restore ./EngAce.Api/EngAce.Api.csproj
+# Restore packages for all projects
+RUN dotnet restore
 
 # Copy the rest of the source code
 COPY . .
@@ -40,6 +41,7 @@ RUN apt-get update && \
 # Set environment variables for NMeCab
 ENV MECAB_PATH=/usr/lib/libmecab.so
 ENV MECAB_DIC_DIR=/usr/lib/x86_64-linux-gnu/mecab/dic/ipadic
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 # Copy the build output from the build stage
 COPY --from=build /app .
