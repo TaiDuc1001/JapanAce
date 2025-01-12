@@ -38,14 +38,18 @@ export default function Writing() {
           } else {
             AlertCustom({
               type: "error",
-              title: response?.data || "Có lỗi xảy ra, vui lòng thử lại",
+              title: typeof response?.data === 'object' 
+                ? JSON.stringify(response.data) 
+                : response?.data || "Có lỗi xảy ra, vui lòng thử lại"
             });
           }
         }
       } catch (error) {
         AlertCustom({
           type: "error",
-          title: error.response?.data || "Có lỗi xảy ra, vui lòng thử lại",
+          title: typeof error.response?.data === 'object'
+            ? JSON.stringify(error.response.data)
+            : error.response?.data || "Có lỗi xảy ra, vui lòng thử lại"
         });
       } finally {
         setLoading(false);

@@ -74,7 +74,9 @@ function* actGenerateQuiz(action) {
   } catch (err) {
     AlertCustom({
       type: "error",
-      title: err.response?.data || "Có lỗi xảy ra, vui lòng thử lại",
+      title: typeof err.response?.data === 'object' 
+        ? JSON.stringify(err.response.data)
+        : err.response?.data || "Có lỗi xảy ra, vui lòng thử lại"
     });
   } finally {
     onFinish();
