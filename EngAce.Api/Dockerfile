@@ -19,6 +19,7 @@ COPY Events/*.csproj ./Events/
 COPY Entities/*.csproj ./Entities/
 COPY Gemini/*.csproj ./Gemini/
 COPY Helper/*.csproj ./Helper/
+COPY EngAce.Web/*.*proj ./EngAce.Web/  # Copy all project files for EngAce.Web
 
 # Restore packages for all projects
 RUN dotnet restore
